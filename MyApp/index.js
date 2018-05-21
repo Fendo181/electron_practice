@@ -4,7 +4,7 @@
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow; // Blowserを読み込む
-const Menu = electron.Menu //メニューモジュールを作成する。
+const Menu = electron.Menu; //メニューモジュールを作成する。
 
 // ブロックスコープの局所変数を宣言
 let mainWindow;
