@@ -5,6 +5,7 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow; // Blowserを読み込む
 const Menu = electron.Menu; //メニューモジュールを作成する。
+const dialog = electron.dialog; //ダイアログを読み込む。
 
 // ブロックスコープの局所変数を宣言
 let mainWindow;
@@ -30,7 +31,14 @@ let menuTemplate = [{
 //テンプレートを読みこんでくる。
 let menu = Menu.buildFromTemplate(menuTemplate)
 
-
+function showAboutDaialog(){
+    dialog.showMessageBox({
+        type: 'info',
+        buttons: ['OK'],
+        message: 'About This App',
+        detail: 'This app was created by @Fendo181'
+    })
+}
 
 function createMainWinowd(){
     Menu.setApplicationMenu(menu);
