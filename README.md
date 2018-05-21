@@ -27,10 +27,16 @@ npm init
 npm i -D electron@latest  -save-dev
 ```
 
-
-
-
-
 参考
 - [Node.js と npm インストールとアップデート](https://qiita.com/jaxx2104/items/2277cec77850f2d83c7a)
+
+
+### 用語説明
+
+- index.js
+  - main process
+  - アプリの状態管理を行う。
+- hoge.js
+  - rendere process
+
 
