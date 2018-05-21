@@ -21,6 +21,20 @@
 </head>
 <body>
     <p id='quote'>Just Do it!</p>
+    <script>
+        'use script'
 
+        const quote = document.getElementById('quote');
+        const quotes = [
+            'Just do it!',
+            'Done is bettrt than perfect',
+            'Ask, do not tell',
+            'Yes!',
+            'こんにちは！!'
+        ];
+        window.addEventListener('click', function(){
+            quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+        });
+    </script>
 </body>
 </html>
