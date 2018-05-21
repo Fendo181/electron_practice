@@ -3,14 +3,31 @@
 //モジュールを読み込む
 const electron = require('electron');
 const app = electron.app;
-// Blowserを読み込む
-const BrowserWindow = electron.BrowserWindow;
+const BrowserWindow = electron.BrowserWindow; // Blowserを読み込む
+const Menu = electron.Menu //メニューモジュールを作成する。
 
 // ブロックスコープの局所変数を宣言
 let mainWindow;
 
 
+let menuTemplate = [{
+    label: 'MyApp',
+    submenu: [
+        { label: 'About' },
+        { type: 'separator'},
+        { label: 'Setting' },
+        { type: 'separator'},
+        { label: 'Quit' }
+    ]
+}]
+
+//テンプレートを読みこんでくる。
+let menu = Menu.buildFromTemplate(menuTemplate)
+
+
+
 function createMainWinowd(){
+    Menu.setApplicationMenu(menu);
     // create window
     mainWindow = new BrowserWindow({width: 600, height:400 });
     mainWindow.loadURL('file://'+ __dirname + '/index.html');
