@@ -36,18 +36,22 @@
         'use script'
         // ipc通信の為
         const ipcRenderer = require('electron').ipcRenderer;
+        // (同期通信処理)
+        let currentColor = ipcRenderer.sendSync('get_bgcolor');
 
         let colors = document.getElementsByName('colors');
         for (let i = 0; i<colors.length; i++){
+            if(currentColor === colors[i].value){
+                colors[i].checked = true;
+            }
             colors[i].addEventListener('change', function(){
                 let color = this.value;
                 // console.log(color)
                 // settings.html → indes.js → index.html
                 // ipcモジュール
 
-                // ipc通音でindex.jsに値を送る。
+                //ipc通音でindex.jsに値を送る。
                 ipcRenderer.send('settings_changed', color);
-
             })
         }
     </script>

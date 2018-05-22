@@ -12,6 +12,8 @@ const ipcMain = electron.ipcMain; //ipcモジュールを読むこむ。ipc:inte
 let mainWindow;
 let settingsWindow;
 
+// background default value
+let background = 'skyblue';
 
 let menuTemplate = [{
     label: 'MyApp',
@@ -37,6 +39,10 @@ let menu = Menu.buildFromTemplate(menuTemplate)
 ipcMain.on('settings_changed', function(event, color) {
     mainWindow.webContents.send('set_bgcolor', color);
 });
+
+ ipcMain.on('get_bgcolor', function(event) {
+    event.returnValue = background
+ });
 
 function showAboutDaialog(){
     dialog.showMessageBox({
