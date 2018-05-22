@@ -37,7 +37,9 @@
         // ipc通信の為
         const ipcRenderer = require('electron').ipcRenderer;
         // (同期通信処理)
-        let currentColor = ipcRenderer.sendSync('get_bgcolor');
+        // let currentColor = ipcRenderer.sendSync('get_bgcolor');
+        let currentColor = localStorage.getItem('color');
+
 
         let colors = document.getElementsByName('colors');
         for (let i = 0; i<colors.length; i++){

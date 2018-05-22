@@ -13,7 +13,7 @@ let mainWindow;
 let settingsWindow;
 
 // background default value
-let backgroundColor = 'skyblue';
+// let backgroundColor = 'skyblue';
 
 let menuTemplate = [{
     label: 'MyApp',
@@ -45,9 +45,9 @@ ipcMain.on('settings_changed', function(event, color) {
 //     backgroundColor = color;
 // });
 
- ipcMain.on('get_bgcolor', function(event) {
-    event.returnValue = backgroundColor;
- });
+//  ipcMain.on('get_bgcolor', function(event) {
+//     event.returnValue = backgroundColor;
+//  });
 
 function showAboutDaialog(){
     dialog.showMessageBox({

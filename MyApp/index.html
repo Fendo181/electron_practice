@@ -34,6 +34,9 @@
         const Menu = remote.Menu;
         const MenuItem = remote.MenuItem;
 
+        let color = localStorage.getItem('color') || 'skyblue';
+        setBackgroundColor(color);
+
         let menu = new Menu();
         menu.append(new MenuItem({label: 'Skyblue', click: function(){
             setBackgroundColor('skyblue');
@@ -54,7 +57,7 @@
         function setBackgroundColor(color) {
             document.body.style.backgroundColor = color;
             //色の変更をweb Storageを使って保存する。
-            localStorage.getItem('color', color);
+            localStorage.setItem('color', color);
 
             // // main processに教えてあげる。
             // ipcRenderer.send('bgcolor_changed', color);
