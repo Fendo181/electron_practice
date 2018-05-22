@@ -24,6 +24,11 @@
     <script>
         'use script'
 
+        // ipc通信の為
+        const electron = require('electron');
+        const ipcRenderer = electron.ipcRenderer;
+
+
         const quote = document.getElementById('quote');
         const quotes = [
             'Just do it!',
@@ -34,6 +39,12 @@
         ];
         window.addEventListener('click', function(){
             quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
+        });
+
+        // index.jsから送られてきた値を受け取る。
+
+        ipcRenderer.on('set_bgcolor', function(event, color){
+            document.body.style.backgroundColor = color;
         });
     </script>
 </body>
