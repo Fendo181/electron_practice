@@ -34,6 +34,8 @@
         const Menu = remote.Menu;
         const MenuItem = remote.MenuItem;
 
+        const shell =remote.shell;
+
         let color = localStorage.getItem('color') || 'skyblue';
         setBackgroundColor(color);
 
@@ -82,6 +84,17 @@
         ipcRenderer.on('set_bgcolor', function(event, color){
             setBackgroundColor(color);
         });
+
+        // 3秒後に通知を飛ばすようにする。
+        setTimeout(function(){
+            let notification = new Notification(
+                'Quote',
+                { body: "Visit our website" }
+            );
+            notification.onclick = function() {
+                shell.openExternal('https://scrapbox.io/fendo181/');
+            }
+        }, 3000);
     </script>
 </body>
 </html>
