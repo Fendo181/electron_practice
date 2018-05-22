@@ -11,18 +11,37 @@
             padding: 10px;
             background: rgb(230, 186, 42);
         }
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul > li {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <!-- 背景色を選べるようにします。 -->
     <h1>Background Colorを選択して下さい！</h1>
     <ul>
-        <li><label><input type="radio" namd="colors" value="skyblue">Skyblue</label></li>
-        <li><label><input type="radio" namd="colors" value="tomato">Tomato</label></li>
-        <li><label><input type="radio" namd="colors" value="slatgray">SlatGrayg</label></li>
+        <li><label><input type="radio" name="colors" value="skyblue">Skyblue</label></li>
+        <li><label><input type="radio" name="colors" value="tomato">Tomato</label></li>
+        <li><label><input type="radio" name="colors" value="slatgray">SlatGrayg</label></li>
+
+
     </ul>
     <script>
         'use script'
+
+        let colors = document.getElementsByName('colors');
+        for (let i = 0; i<colors.length; i++){
+            colors[i].addEventListener('change', function(){
+                let color = this.value;
+                console.log(color)
+            })
+        }
     </script>
 </body>
 </html>
