@@ -13,7 +13,7 @@ Electronに慣れる為に簡単なアプリケーションを作成します。
 - index.js
   - main process
   - アプリの状態管理を行う。
-- hoge.js
+- hoge.html
   - rendere process
 
 
