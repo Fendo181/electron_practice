@@ -13,7 +13,7 @@ let mainWindow;
 let settingsWindow;
 
 // background default value
-let background = 'skyblue';
+let backgroundColor = 'skyblue';
 
 let menuTemplate = [{
     label: 'MyApp',
@@ -40,8 +40,13 @@ ipcMain.on('settings_changed', function(event, color) {
     mainWindow.webContents.send('set_bgcolor', color);
 });
 
+ipcMain.on('bgcolor_changed', function(event, color) {
+    // 同期処理でsettingにも反映される。
+    backgroundColor = color;
+});
+
  ipcMain.on('get_bgcolor', function(event) {
-    event.returnValue = background
+    event.returnValue = backgroundColor;
  });
 
 function showAboutDaialog(){
