@@ -6,6 +6,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow; // Blowserを読み込む
 const Menu = electron.Menu; //メニューモジュールを作成する。
 const dialog = electron.dialog; //ダイアログを読み込む。
+const ipcMain = electron.ipcMain; //ipcモジュールを読むこむ。ipc:inter-Process Communication
 
 // ブロックスコープの局所変数を宣言
 let mainWindow;
@@ -31,6 +32,11 @@ let menuTemplate = [{
 
 //テンプレートを読みこんでくる。
 let menu = Menu.buildFromTemplate(menuTemplate)
+
+// settings.htmlから送られてきた値を受け取る。
+ipcMain.on('settings_changed', function(event, color) {
+    mainWindow.webContents.send('set_bgcolor', color);
+});
 
 function showAboutDaialog(){
     dialog.showMessageBox({
