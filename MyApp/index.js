@@ -9,6 +9,7 @@ const dialog = electron.dialog; //ダイアログを読み込む。
 
 // ブロックスコープの局所変数を宣言
 let mainWindow;
+let settingsWindow;
 
 
 let menuTemplate = [{
@@ -38,6 +39,19 @@ function showAboutDaialog(){
         message: 'About This App',
         detail: 'This app was created by @Fendo181'
     })
+}
+
+function showSettingWindow(){
+    // create window
+    settingsWindow = new BrowserWindow({width: 600, height:400 });
+    settingsWindow.loadURL('file://'+ __dirname + '/settings.html');
+    // chomeのツールを読み込む
+    settingsWindow.webContents.openDevTools();
+    settingsWindow.show();
+    // 閉じた際の処理
+    settingsWindow.on('closed', function(){
+        settingsWindow = null;
+    });
 }
 
 function createMainWinowd(){
