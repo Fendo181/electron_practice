@@ -53,8 +53,11 @@
 
         function setBackgroundColor(color) {
             document.body.style.backgroundColor = color;
-            // main processに教えてあげる。
-            ipcRenderer.send('bgcolor_changed', color);
+            //色の変更をweb Storageを使って保存する。
+            localStorage.getItem('color', color);
+
+            // // main processに教えてあげる。
+            // ipcRenderer.send('bgcolor_changed', color);
         }
 
 
