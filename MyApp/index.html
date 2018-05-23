@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Quotes!</title>
+    <title>謹之助リマインダー</title>
     <style>
         body {
             font-family:Verdana, Geneva, Tahoma, sans-serif;
@@ -20,17 +20,25 @@
     </style>
 </head>
 <body>
-    <!-- <h3>名言をランダムで表示</h3>
-    <p id='quote'>Just Do it!</p> -->
-
     <h1>何時に退勤しますか?</h1>
-    <form action="" method="post">
-        <input type="time" name="exit-time" value="19:00">
-        <input type="reset" value="リセット">
-        <input type="submit" value="決定">
-    </form>
+        <input  id="clock_out" type="time" value="19:00">
+        <button id="btn">決定</button>
+
+        <script>
+            let btn = document.getElementById('btn');
+            btn.addEventListener('click', function(){
+                let time_clock_out = document.getElementById('clock_out').value;
+                // mian processに同期通信で値を送る。
+                console.log(time_clock_out);
+
+                // ipc通信の為
+                const ipcRenderer = require('electron').ipcRenderer;
+                ipcRenderer.send('settings_out_time', time_clock_out);
+
+            });
+        </script>
     <h4>デフォルトは19:00にセットされています。</h4>
-    <h4></h4>この時間になると通知がされます。</h4>
+    <h4>この時間になると通知がされます。</h4>
 
     <script>
         'use script'
@@ -38,9 +46,6 @@
         // ipc通信の為
         const electron = require('electron');
         const ipcRenderer = electron.ipcRenderer;
-        // 通常は Main Process でしか使えないのですが、
-        // remote というモジュールを使って Renderer Process
-        // から使うことができたりします
         const remote = electron.remote;
         const Menu = remote.Menu;
         const MenuItem = remote.MenuItem;
@@ -71,41 +76,52 @@
             document.body.style.backgroundColor = color;
             //色の変更をweb Storageを使って保存する。
             localStorage.setItem('color', color);
-
-            // // main processに教えてあげる。
-            // ipcRenderer.send('bgcolor_changed', color);
         }
 
-
-
-        const quote = document.getElementById('quote');
-        const quotes = [
-            'Just do it!',
-            'Done is bettrt than perfect',
-            'Ask, do not tell',
-            'Yes!',
-            'こんにちは！!'
-        ];
-        window.addEventListener('click', function(){
-            quote.innerHTML = quotes[Math.floor(Math.random() * quotes.length)];
-        });
-
-        // index.jsから送られてきた値を受け取る。
 
         ipcRenderer.on('set_bgcolor', function(event, color){
             setBackgroundColor(color);
         });
 
         // 3秒後に通知を飛ばすようにする。
-        setTimeout(function(){
-            let notification = new Notification(
-                'Quote',
-                { body: "テスト通知(3秒) 勤之助にアクセスして下さい" }
-            );
-            notification.onclick = function() {
-                shell.openExternal('https://www.4628.jp/?module=top&rd=1');
+        ipcRenderer.on('set_out_time', function(event, time_clock_out){
+            let clock_out = time_clock_out;
+
+            let send_time = clock_out.split(':');
+            let hour = send_time[0];
+            let minute = send_time[1];
+
+            //退勤予定時間
+            let clock_out_date = new Date();
+            clock_out_date.setHours(hour);
+            clock_out_date.setMinutes(minute)
+
+            //現在時刻
+            let today_date = new Date();
+
+            if( today_date.getTime() > clock_out_date.getTime() ){
+                console.log('現在時刻よりも後ろは設定できないです。');
+                let notification = new Notification(
+                        'Quote',
+                        { body: "現在時刻よりも後ろは設定できないです。" }
+                );
+            } else {
+                NotifiOutTime();
             }
-        }, 3000);
+
+            function NotifiOutTime(){
+                setTimeout(function(){
+                    let notification = new Notification(
+                        'Quote',
+                        { body: "退勤予定時間が"+time_clock_out+"にセットされました!" }
+                    );
+                    notification.onclick = function() {
+                        shell.openExternal('https://www.4628.jp/?module=top&rd=1');
+                    }
+                }, 1500);
+            }
+        });
+
     </script>
 </body>
 </html>
