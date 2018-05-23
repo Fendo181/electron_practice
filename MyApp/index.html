@@ -79,9 +79,7 @@
 
         // 3秒後に通知を飛ばすようにする。
         ipcRenderer.on('set_out_time', function(event, time_clock_out){
-            let clock_out = time_clock_out;
-
-            let send_time = clock_out.split(':');
+            let send_time = time_clock_out.split(':');
             let hour = send_time[0];
             let minute = send_time[1];
 
