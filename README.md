@@ -36,6 +36,32 @@ npm init
 npm i -D electron@latest  -save-dev
 ```
 
+## アプリケーション作成方法
+
+electron-packagerをインストールする。
+
+```
+npm i electron-packager --save-dev
+```
+
+versionを確認する。
+
+```
+node_modules/.bin/electron -v
+
+v2.0.1
+```
+
+アプリケーションを作成する。
+ディレクトリ配下に`./MyApp/myapp-darwin-x64/MyApp.app`が出来る。
+
+```
+node_modules/.bin/electron-packager ./ Myapp --platform=darwin --arch=x64
+```
+
+これで出来る。
+
+
 参考
 - [Node.js と npm インストールとアップデート](https://qiita.com/jaxx2104/items/2277cec77850f2d83c7a)
 
