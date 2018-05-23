@@ -8,7 +8,7 @@
     <title>謹之助リマインダー</title>
 </head>
 <body>
-    <h1>何時に退勤しますか?</h1>
+    <h3>何時に退勤しますか?</h3>
         <input  id="clock_out" type="time" value="19:00">
         <button id="btn">決定</button>
 
@@ -94,17 +94,17 @@
             if( today_date.getTime() > clock_out_date.getTime() ){
                 console.log('現在時刻よりも後ろは設定できないです。');
                 let notification = new Notification(
-                        'Quote',
+                        '勤之助リマインダー',
                         { body: "現在時刻よりも後ろは設定できないです。" }
                 );
             } else {
-                NotifiOutTime();
+                notifiOutTime();
             }
 
-            function NotifiOutTime(){
+            function notifiOutTime(){
                 setTimeout(function(){
                     let notification = new Notification(
-                        'Quote',
+                        '勤之助リマインダー',
                         { body: "退勤予定時間が"+time_clock_out+"にセットされました!" }
                     );
                     notification.onclick = function() {
