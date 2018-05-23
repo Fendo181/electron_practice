@@ -99,6 +99,22 @@
                 );
             } else {
                 notifiClockOut();
+                remindClockOut()
+            }
+
+            function remindClockOut(){
+                setInterval(function(){
+                    let remind_clok_out = clock_out_date.getTime()
+                    if( today_date.getTime() == remind_clok_out ){
+                        let notification = new Notification(
+                            '勤之助リマインダー',
+                            { body: "退勤時間になります! タイムカードを打刻して下さい!" }
+                        );
+                        notification.onclick = function() {
+                            shell.openExternal('https://www.4628.jp/?module=top&rd=1');
+                        }
+                    }
+                },1000);
             }
 
             function notifiClockOut(){
@@ -107,9 +123,6 @@
                         '勤之助リマインダー',
                         { body: "退勤予定時間が"+time_clock_out+"にセットされました!" }
                     );
-                    notification.onclick = function() {
-                        shell.openExternal('https://www.4628.jp/?module=top&rd=1');
-                    }
                 }, 1500);
             }
         });
