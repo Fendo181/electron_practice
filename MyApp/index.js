@@ -12,9 +12,6 @@ const ipcMain = electron.ipcMain; //ipcモジュールを読むこむ。ipc:inte
 let mainWindow;
 let settingsWindow;
 
-// background default value
-// let backgroundColor = 'skyblue';
-
 let menuTemplate = [{
     label: 'MyApp',
     submenu: [
@@ -40,14 +37,10 @@ ipcMain.on('settings_changed', function(event, color) {
     mainWindow.webContents.send('set_bgcolor', color);
 });
 
-// ipcMain.on('bgcolor_changed', function(event, color) {
-//     // 同期処理でsettingにも反映される。
-//     backgroundColor = color;
-// });
-
-//  ipcMain.on('get_bgcolor', function(event) {
-//     event.returnValue = backgroundColor;
-//  });
+// 送られてくる退勤時間を受け取る
+ipcMain.on('settings_out_time', function(event, time_clock_out) {
+    mainWindow.webContents.send('set_out_time', time_clock_out);
+});
 
 function showAboutDaialog(){
     dialog.showMessageBox({
@@ -63,7 +56,7 @@ function showSettingWindow(){
     settingsWindow = new BrowserWindow({width: 600, height:400 });
     settingsWindow.loadURL('file://'+ __dirname + '/settings.html');
     // chomeのツールを読み込む
-    // settingsWindow.webContents.openDevTools();
+    settingsWindow.webContents.openDevTools();
     settingsWindow.show();
     // 閉じた際の処理
     settingsWindow.on('closed', function(){
@@ -77,7 +70,7 @@ function createMainWinowd(){
     mainWindow = new BrowserWindow({width: 600, height:400 });
     mainWindow.loadURL('file://'+ __dirname + '/index.html');
     // chomeのツールを読み込む
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
     // 閉じた際の処理
     mainWindow.on('closed', function(){
         mainWindow = null;
