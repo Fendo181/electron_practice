@@ -98,10 +98,10 @@
                         { body: "現在時刻よりも後ろは設定できないです。" }
                 );
             } else {
-                notifiOutTime();
+                notifiClockOut();
             }
 
-            function notifiOutTime(){
+            function notifiClockOut(){
                 setTimeout(function(){
                     let notification = new Notification(
                         '勤之助リマインダー',
