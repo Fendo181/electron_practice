@@ -20,7 +20,10 @@
     </style>
 </head>
 <body>
+    <h1>名言をランダムで表示</h1>
     <p id='quote'>Just Do it!</p>
+
+
     <script>
         'use script'
 
@@ -89,10 +92,10 @@
         setTimeout(function(){
             let notification = new Notification(
                 'Quote',
-                { body: "Visit our website" }
+                { body: "テスト通知(3秒) 勤之助にアクセスして下さい" }
             );
             notification.onclick = function() {
-                shell.openExternal('https://scrapbox.io/fendo181/');
+                shell.openExternal('https://www.4628.jp/?module=top&rd=1');
             }
         }, 3000);
     </script>
